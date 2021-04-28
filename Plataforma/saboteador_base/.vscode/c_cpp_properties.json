@@ -1,0 +1,33 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/antonio/catkin_ws/devel/include/**",
+        "/home/antonio/workspace/ros/aerostack_catkin_ws/devel/include/**",
+        "/opt/ros/melodic/include/**",
+        "/home/antonio/workspace/ros/aerostack_catkin_ws/src/aerostack_stack/stack_deprecated/common/drone_process/include/**",
+        "/home/antonio/workspace/ros/aerostack_catkin_ws/src/aerostack_stack/stack/libraries/mav_comm/mav_msgs/include/**",
+        "/home/antonio/workspace/ros/aerostack_catkin_ws/src/aerostack_stack/stack_deprecated/libraries/mav_comm_rotors/mav_msgs_rotors/include/**",
+        "/home/antonio/workspace/ros/aerostack_catkin_ws/src/aerostack_stack/stack/libraries/mav_comm/mav_planning_msgs/include/**",
+        "/home/antonio/workspace/ros/aerostack_catkin_ws/src/aerostack_stack/stack/simulation/quadrotor_gazebo_simulator/motor_speed_controller/include/**",
+        "/home/antonio/workspace/ros/aerostack_catkin_ws/src/aerostack_stack/stack_deprecated/libraries/mav_comm_rotors/planning_msgs/include/**",
+        "/home/antonio/workspace/ros/aerostack_catkin_ws/src/aerostack_stack/stack/common/robot_process/include/**",
+        "/home/antonio/workspace/ros/aerostack_catkin_ws/src/aerostack_stack/stack/simulation/quadrotor_gazebo_simulator/rotors_simulator/rotors_control/include/**",
+        "/home/antonio/workspace/ros/aerostack_catkin_ws/src/aerostack_stack/stack/simulation/quadrotor_gazebo_simulator/rotors_simulator/rotors_gazebo_plugins/include/**",
+        "/home/antonio/workspace/ros/aerostack_catkin_ws/src/aerostack_stack/stack/simulation/quadrotor_gazebo_simulator/rotors_simulator/rotors_joy_interface/include/**",
+        "/home/antonio/catkin_ws/src/repo_saboteador/Plataforma/saboteador_base/include/**",
+        "/home/antonio/catkin_ws/src/repo_saboteador/Plataforma/saboteador_control/include/**",
+        "/home/antonio/catkin_ws/src/talker_listener/include/**",
+        "/home/antonio/catkin_ws/src/tortucontroller/include/**",
+        "/home/antonio/catkin_ws/src/tutorials_rosbot/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

@@ -1,0 +1,16 @@
+Saboteador_hw_interface.cpp
+
+Topics a los que se suscribe:
+    "encoder_ticks"     diffbot_msgs::Encoder  
+
+Topics en los que publica
+    "motor_left"    std_msgs::Int32
+    "motor_right"   std_msgs::Int32 
+    
+    
+ max_velocity ---- 100
+ pid_output   ---- x
+ 
+ motor_cmd = pid_output * 100 /max_vel
+ 
+ motor_cmd = pid_output

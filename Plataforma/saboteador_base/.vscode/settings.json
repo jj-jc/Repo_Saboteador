@@ -1,0 +1,8 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/antonio/catkin_ws/devel/lib/python2.7/dist-packages",
+        "/home/antonio/workspace/ros/aerostack_catkin_ws/devel/lib/python2.7/dist-packages",
+        "/opt/ros/melodic/lib/python2.7/dist-packages"
+    ],
+    "cmake.configureOnOpen": true
+}
