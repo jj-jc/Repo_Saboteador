@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-  <include
-    file="$(find gazebo_ros)/launch/empty_world.launch" />
-  <param name="robot_description" command="$(find xacro)/xacro.py $(find saboteador)/model/model.sdf" />
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -sdf -model saboteador" />
-</launch>

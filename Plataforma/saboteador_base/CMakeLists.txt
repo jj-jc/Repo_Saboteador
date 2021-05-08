@@ -144,6 +144,8 @@ add_library(saboteador_hw_interface
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(${PROJECT_NAME} src/saboteador_base.cpp)
 
+# Cortesía Antonio Carralero
+add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use

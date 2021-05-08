@@ -182,6 +182,8 @@ namespace saboteador_base
         const int width = 10;
         const char sep = ' ';
         std::stringstream ss;
+        // Cortesía Antonio Carralero, error: to_string()
+        std::stringstream num_joints;
         // Header
         ss << std::left << std::setw(width) << std::setfill(sep) << "Write"
            << std::left << std::setw(width) << std::setfill(sep) << "velocity"
@@ -197,7 +199,9 @@ namespace saboteador_base
             pids_[i].getCurrentPIDErrors(&p_error, &i_error, &d_error);
             
             // Joint i
-            std::string j = "j" + std::to_string(i) + ":";
+            
+            num_joints << i;
+            std::string j = "j" + num_joints.str() + ":";
             ss << std::left << std::setw(width) << std::setfill(sep) << j
                << std::left << std::setw(width) << std::setfill(sep) << joint_velocity_commands_[i]
                << std::left << std::setw(width) << std::setfill(sep) << p_error
