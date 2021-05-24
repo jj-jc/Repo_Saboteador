@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import RPi.GPIO as GPIO			# using Rpi.GPIO module
 from time import sleep			# import function sleep for delay
 import rospy

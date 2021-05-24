@@ -3,8 +3,9 @@
 	<!-- Load the URDF model of DiffBot into the ROS Parameter Server -->
     <!--param name="saboteador/robot_description"
         command="$(find xacro)/xacro '$(find saboteador_description)/urdf/saboteador.urdf.xacro'"/-->
-        
-    <param name="saboteador/robot_description" command="$(find xacro)/xacro --inorder $(find saboteador_description)/urdf/saboteador.urdf.xacro"/> 
+    
+    <param name="saboteador/robot_description"
+    	command="$(find xacro)/xacro --inorder $(find saboteador_description)/urdf/saboteador.urdf.xacro"/> 
 
     <!-- Run the diffbot_base -->
     <!-- This will create the DiffBot hardware interface and instantiate a new controller manager with it -->
@@ -19,4 +20,9 @@
     <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
         output="screen" ns="saboteador" args="joint_state_controller
                                             mobile_base_controller"/>
+                                            
+                                            
+  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+  <param name="default_topic" value="/saboteador/mobile_base_controller/cmd_vel"/>
+  </node>
 </launch>

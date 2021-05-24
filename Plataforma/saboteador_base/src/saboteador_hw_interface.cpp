@@ -113,8 +113,8 @@ namespace saboteador_base
         // Read from robot hw (motor encoders)
         // Fill joint_state_* members with read values
         double wheel_angles[2];
-        double wheel_angle_deltas[2];
-        for (std::size_t i = 0; i < num_joints_; ++i)
+        double wheel_angle_deltas[2] = {0,0};
+        /*for (std::size_t i = 0; i < num_joints_; ++i)
         {
             wheel_angles[i] = ticksToAngle(encoder_ticks_[i]); 
             //double wheel_angle_normalized = normalizeAngle(wheel_angle);
@@ -123,7 +123,16 @@ namespace saboteador_base
             joint_positions_[i] += wheel_angle_deltas[i];
             joint_velocities_[i] = wheel_angle_deltas[i] / period.toSec();
             joint_efforts_[i] = 0.0; // unused with diff_drive_controller
+        }*/
+        
+        for (std::size_t i = 0; i < num_joints_; ++i){
+        	wheel_angles[i] = ticksToAngle(encoder_ticks_[i]); 
+        	joint_velocities_[i] = wheel_angles[i] / period.toSec();
+        	joint_positions_[i] = 0.0; //unused
+        	joint_efforts_[i] = 0.0; // unused
         }
+        
+        
         const int width = 10;
         const char sep = ' ';
         std::stringstream ss;
@@ -151,10 +160,15 @@ namespace saboteador_base
         pid_outputs[1] = pids_[1](joint_velocities_[1], joint_velocity_commands_[1], period);
 
         // Observación: La salida del PID debería ser directamente el motor_cmd
-        motor_cmds[0] = pid_outputs[0] / max_velocity_ * 100.0;
-        motor_cmds[1] = pid_outputs[1] / max_velocity_ * 100.0;
-        left_motor.data = motor_cmds[0];
-        right_motor.data = motor_cmds[1];
+        //////////////////////////////////////////////////////////////////////
+        //motor_cmds[0] = pid_outputs[0] / max_velocity_ * 100.0;
+        //motor_cmds[1] = pid_outputs[1] / max_velocity_ * 100.0;
+        //left_motor.data = motor_cmds[0];
+        //right_motor.data = motor_cmds[1];
+        ////////////////////////////////////////////////////////////////
+        
+        left_motor.data = pid_outputs[0];
+        right_motor.data = pid_outputs[1];
 
         // Calibrate motor commands to deal with different gear friction in the
         // left and right motors and possible differences in the wheels.

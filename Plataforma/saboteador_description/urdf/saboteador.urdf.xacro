@@ -5,7 +5,7 @@
   <xacro:property name="robot_name" value="saboteador"/>
 
   <xacro:include filename="$(find ${package_name})/urdf/include/common_macros.urdf.xacro" />
-  
+
   <!-- <xacro:set_package_name /> -->
 
   <xacro:property name="back_wheel_yaml" value="$(find ${package_name})/config/${robot_name}/back_wheel.yaml" />

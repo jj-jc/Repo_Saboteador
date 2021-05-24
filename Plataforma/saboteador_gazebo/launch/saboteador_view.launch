@@ -21,8 +21,11 @@
   </include>
 
   <!-- Load the URDF into the ROS Parameter Server -->
-  <param name="saboteador/robot_description"
-    command="$(find xacro)/xacro '$(find saboteador_description)/urdf/saboteador.urdf.xacro'"/>
+  <!--param name="saboteador/robot_description"
+    command="$(find xacro)/xacro '$(find saboteador_description)/urdf/saboteador.urdf.xacro'"/-->
+    
+  <param name="saboteador/robot_description" 
+  	command="$(find xacro)/xacro --inorder $(find saboteador_description)/urdf/saboteador.urdf.xacro"/>   
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
