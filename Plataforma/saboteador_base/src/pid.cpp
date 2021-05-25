@@ -57,7 +57,7 @@ namespace saboteador_base
 
         // Compute final output including feed forward term
         output = f_ * setpoint + output;
-        //output = clamp(output, out_min_, out_max_);
+        output = clamp(output, out_min_, out_max_);
 
         return output;
     }

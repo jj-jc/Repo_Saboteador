@@ -3,8 +3,8 @@
 // ROS parameter loading
 #include <rosparam_shortcuts/rosparam_shortcuts.h>
 
-//#include <std_msgs/Float32.h>
-#include <std_msgs/Int32.h>
+#include <std_msgs/Float32.h>
+//#include <std_msgs/Int32.h>
 
 #include <iomanip>
  
@@ -39,8 +39,8 @@ namespace saboteador_base
         max_velocity_ = linearToAngular(max_velocity_);
 
         // Setup publisher for the motor driver 
-        pub_left_motor_value_ = nh_.advertise<std_msgs::Int32>("motor_left", 10);
-        pub_right_motor_value_ = nh_.advertise<std_msgs::Int32>("motor_right", 10);
+        pub_left_motor_value_ = nh_.advertise<std_msgs::Float32>("motor_left", 10);
+        pub_right_motor_value_ = nh_.advertise<std_msgs::Float32>("motor_right", 10);
 
         // Observación, sería mejor sub_encoders_ticks
         // Setup subscriber for the wheel encoders
@@ -85,8 +85,9 @@ namespace saboteador_base
             ROS_INFO_STREAM("pid namespace: " << pid_namespace);
             ros::NodeHandle nh(root_nh, pid_namespace);
             // TODO implement builder pattern to initialize values otherwise it is hard to see which parameter is what.
-            pids_[i].init(nh, 0.8, 0.35, 0.5, 0.01, 3.5, -3.5, false, max_velocity_, -max_velocity_);
-            pids_[i].setOutputLimits(-max_velocity_, max_velocity_);
+            // feedforward, proportional, integral, derivative, i_max, i_min, antiwindup, out_max, out_min
+            pids_[i].init(nh, 0.0, 7.0, 0.0, 0.00, 0.0, 0.0, false, 100.0, -100.0);
+            // pids_[i].setOutputLimits(-max_velocity_, max_velocity_);
         }
 
         // Register the JointStateInterface containing the read only joints
@@ -151,11 +152,11 @@ namespace saboteador_base
         // Convert the velocity command to a percentage value for the motor
         // This maps the velocity to a percentage value which is used to apply
         // a percentage of the highest possible battery voltage to each motor.
-        std_msgs::Int32 left_motor;
-        std_msgs::Int32 right_motor;
+        std_msgs::Float32 left_motor;
+        std_msgs::Float32 right_motor;
 
         double pid_outputs[NUM_JOINTS];
-        double motor_cmds[NUM_JOINTS] ;
+        double motor_cmds[NUM_JOINTS] = {0,0};
         pid_outputs[0] = pids_[0](joint_velocities_[0], joint_velocity_commands_[0], period);
         pid_outputs[1] = pids_[1](joint_velocities_[1], joint_velocity_commands_[1], period);
 
@@ -167,6 +168,7 @@ namespace saboteador_base
         //right_motor.data = motor_cmds[1];
         ////////////////////////////////////////////////////////////////
         
+
         left_motor.data = pid_outputs[0];
         right_motor.data = pid_outputs[1];
 
@@ -197,10 +199,10 @@ namespace saboteador_base
         const char sep = ' ';
         std::stringstream ss;
         // Cortesía Antonio Carralero, error: to_string()
-        std::stringstream num_joints;
+        // std::stringstream num_joints;
         // Header
         ss << std::left << std::setw(width) << std::setfill(sep) << "Write"
-           << std::left << std::setw(width) << std::setfill(sep) << "velocity"
+           << std::left << std::setw(width) << std::setfill(sep) << "vel_cmd"
            << std::left << std::setw(width) << std::setfill(sep) << "p_error"
            << std::left << std::setw(width) << std::setfill(sep) << "i_error"
            << std::left << std::setw(width) << std::setfill(sep) << "d_error"
@@ -214,8 +216,8 @@ namespace saboteador_base
             
             // Joint i
             
-            num_joints << i;
-            std::string j = "j" + num_joints.str() + ":";
+            
+            std::string j = "j" + std::to_string(i) + ":";
             ss << std::left << std::setw(width) << std::setfill(sep) << j
                << std::left << std::setw(width) << std::setfill(sep) << joint_velocity_commands_[i]
                << std::left << std::setw(width) << std::setfill(sep) << p_error
