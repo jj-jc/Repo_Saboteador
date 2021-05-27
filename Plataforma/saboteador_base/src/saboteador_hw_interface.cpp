@@ -137,9 +137,9 @@ namespace saboteador_base
         const int width = 10;
         const char sep = ' ';
         std::stringstream ss;
-        ss << std::left << std::setw(width) << std::setfill(sep) << "Read" << std::left << std::setw(width) << std::setfill(sep) << "ticks" << std::left << std::setw(width) << std::setfill(sep) << "angle" << std::left << std::setw(width) << std::setfill(sep) << "dangle" << std::setw(width) << std::setfill(sep) << "velocity" << std::endl;
-        ss << std::left << std::setw(width) << std::setfill(sep) << "j0:" << std::left << std::setw(width) << std::setfill(sep) << encoder_ticks_[0] << std::left << std::setw(width) << std::setfill(sep) << wheel_angles[0] << std::left << std::setw(width) << std::setfill(sep) << wheel_angle_deltas[0] << std::setw(width) << std::setfill(sep) << joint_velocities_[0] << std::endl;
-        ss << std::left << std::setw(width) << std::setfill(sep) << "j1:" << std::left << std::setw(width) << std::setfill(sep) << encoder_ticks_[1] << std::left << std::setw(width) << std::setfill(sep) << wheel_angles[1] << std::left << std::setw(width) << std::setfill(sep) << wheel_angle_deltas[1] << std::setw(width) << std::setfill(sep) << joint_velocities_[1];
+        ss << std::left << std::setw(width) << std::setfill(sep) << "Read" << std::left << std::setw(width) << std::setfill(sep) << "ticks" << std::left << std::setw(width) << std::setfill(sep) << "angle" << std::left << std::setw(width) << std::setfill(sep) << "velocity" << std::endl;
+        ss << std::left << std::setw(width) << std::setfill(sep) << "j0:" << std::left << std::setw(width) << std::setfill(sep) << encoder_ticks_[0] << std::left << std::setw(width) << std::setfill(sep) << wheel_angles[0] << std::left << std::setw(width) << std::setfill(sep) << joint_velocities_[0] << std::endl;
+        ss << std::left << std::setw(width) << std::setfill(sep) << "j1:" << std::left << std::setw(width) << std::setfill(sep) << encoder_ticks_[1] << std::left << std::setw(width) << std::setfill(sep) << wheel_angles[1] << std::left << std::setw(width) << std::setfill(sep) << joint_velocities_[1];
         ROS_INFO_STREAM(std::endl << ss.str());
         //printState();
     }
@@ -207,7 +207,6 @@ namespace saboteador_base
            << std::left << std::setw(width) << std::setfill(sep) << "i_error"
            << std::left << std::setw(width) << std::setfill(sep) << "d_error"
            << std::left << std::setw(width) << std::setfill(sep) << "pid out"
-           << std::left << std::setw(width) << std::setfill(sep) << "percent"
            << std::endl;
         double p_error, i_error, d_error;
         for (int i = 0; i < NUM_JOINTS; ++i)
@@ -224,7 +223,6 @@ namespace saboteador_base
                << std::left << std::setw(width) << std::setfill(sep) << i_error
                << std::left << std::setw(width) << std::setfill(sep) << d_error
                << std::left << std::setw(width) << std::setfill(sep) << pid_outputs[i]
-               << std::left << std::setw(width) << std::setfill(sep) << motor_cmds[i]
                << std::endl;
         }
         ROS_INFO_STREAM(std::endl << ss.str());
@@ -309,7 +307,8 @@ namespace saboteador_base
     double SaboteadorHWInterface::ticksToAngle(const int &ticks) const
     {
         // Convert number of encoder ticks to angle in radians
-        double angle = (double)ticks * (2.0*M_PI / 542.0);
+        // Nótese que 
+        double angle = (double)ticks * (2.0*M_PI / 3000.0);
         ROS_DEBUG_STREAM_THROTTLE(1, ticks << " ticks correspond to an angle of " << angle);
 	    return angle;
     }

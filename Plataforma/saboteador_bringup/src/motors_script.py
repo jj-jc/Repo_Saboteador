@@ -27,7 +27,7 @@ duty_motor_right = 0
 
 
 def motor_left_callback(msg):
-	global duty_motor_left   
+	global duty_motor_left
     duty_motor_left = msg.data
     #print("motor left callback: ", duty_motor_left)
     
@@ -35,8 +35,8 @@ def motor_right_callback(msg):
 	global duty_motor_right
     duty_motor_right = msg.data
     #print("motor right callback: ", duty_motor_right)
-    
-    
+
+
 def listener():
 	global duty_motor_left
 	global duty_motor_right
@@ -59,16 +59,16 @@ def listener():
         else:
             GPIO.output(DIG_L, GPIO.HIGH)
             duty_motor_left = -duty_motor_left;
-    
+            
         if duty_motor_right >= 0:
             GPIO.output(DIG_R, GPIO.LOW) 
         else:
             GPIO.output(DIG_R, GPIO.HIGH)
             duty_motor_right = -duty_motor_right;
     	
-    	print("motor left callback: ", duty_motor_left)
-    	print("\n")
-    	print("motor right callback: ", duty_motor_right)
+        print("motor left callback: ", duty_motor_left)
+        print("\n")
+        print("motor right callback: ", duty_motor_right)
     	 
         p1.start(duty_motor_left)                     
         p2.start(duty_motor_right) 
@@ -80,7 +80,7 @@ if __name__ == '__main__':
     try:
         listener()
     except rospy.ROSInterruptException:
-    	GPIO.cleanup()
+        GPIO.cleanup()
         pass
 
 

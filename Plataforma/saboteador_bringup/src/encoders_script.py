@@ -3,8 +3,8 @@ import RPi.GPIO as GPIO
 import os
 import time
 import rospy
-from std_msgs.msg import Int32
-
+#from std_msgs.msg import Int32
+from diffbot_msgs.msg import Encoder
 
 
 #setup
@@ -19,13 +19,13 @@ GPIO.setup(19,GPIO.IN) #RF
 #GPIO.setup(8,GPIO.IN)
 
 
-# Por ahora sólo leemos 
+# Por ahora solo leemos 
 contaLF=0
 #contaLB=0
 contaRF=0
 #contaRB=0
 
-
+encoder = Encoder()
 
 #callbacks
 def CuentaA_LF(channel):
@@ -59,7 +59,8 @@ GPIO.add_event_detect(19,GPIO.RISING, callback=CuentaA_RF)
 
 
 def talker():
-
+	global contaLF
+	global contaRF
     rospy.init_node('encoder_talker', anonymous=True)
     pub_encoders = rospy.Publisher('saboteador/encoder_ticks',Encoder, queue_size=10)
     rate = rospy.Rate(50)
@@ -70,6 +71,8 @@ def talker():
         encoder.encoders[0] = contaLF
         encoder.encoders[1] = contaRF
         pub_encoders.publish(encoder)
+        contaLF = 0;
+        contaRF = 0;
         rate.sleep()
 
 
@@ -79,5 +82,5 @@ if __name__=='__main__':
         talker()
             
     except rospy.ROSInterruptException:
-    	#GPIO.cleanup()
+    	GPIO.cleanup()
         pass
